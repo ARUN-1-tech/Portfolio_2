@@ -4,7 +4,7 @@ import profileImg from '../assets/profile.jpg';
 
 export default function About() {
   const handleDownloadResume = () => {
-    const resumeUrl = '/ARUN_T_Resume.txt';
+    const resumeUrl = `${import.meta.env.BASE_URL}ARUN_T_Resume.txt`;
     const link = document.createElement('a');
     link.href = resumeUrl;
     link.download = 'ARUN_T_Resume.txt';
@@ -44,7 +44,7 @@ export default function About() {
             <div className="about-meta">
               <div className="about-meta-item">
                 <MapPin size={18} />
-                <span>Coimbatore, TamilNadu</span>
+                <span>Gobichettipalayam, Erode</span>
               </div>
               <div className="about-meta-item">
                 <GraduationCap size={18} />

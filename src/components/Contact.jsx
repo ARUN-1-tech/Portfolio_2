@@ -94,7 +94,7 @@ Email: ${email}`;
             </div>
             <div className="contact-info-text">
               <h4>Location</h4>
-              <p>Coimbatore, TamilNadu</p>
+              <p>Gobichettipalayam, Erode, TamilNadu</p>
             </div>
           </div>
         </div>

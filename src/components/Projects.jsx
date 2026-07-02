@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { ExternalLink, Users, FileText, TrendingUp, Tv, PenTool, Mic, Activity } from 'lucide-react';
 import { Github } from './BrandIcons';
+import useScrollReveal from '../hooks/useScrollReveal';
 
 function ProjectCard({ project }) {
   const cardRef = useRef(null);
@@ -65,6 +66,8 @@ function ProjectCard({ project }) {
 
 export default function Projects() {
   const [filter, setFilter] = useState('all');
+
+  useScrollReveal([filter]);
 
   const projectsData = [
     {

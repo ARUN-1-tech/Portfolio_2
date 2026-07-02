@@ -1,64 +1,67 @@
 ARUN T
-Coimbatore, TamilNadu | +91 8778487067 | moorthyarun2007@gmail.com
-GitHub: https://github.com/ARUN-1-tech | LinkedIn: https://www.linkedin.com/in/arun-t-84b61b328
-
-======================================================================
-PROFESSIONAL TITLE
 Aspiring Full Stack Developer | Backend Developer | AI Enthusiast
-======================================================================
+https://www.linkedin.com/in/arun-t-84b61b328
+moorthyarun2007@gmail.com || https://github.com/ARUN-1-tech || 8778487067
+Gobichettipalayam, Erode - 638505.
 
-PROFILE
+======================================================================
+PROFESSIONAL SUMMARY
+======================================================================
 Computer Science Engineering student with hands-on experience building full stack web applications using Django, React, Spring Boot, and REST APIs. Strong foundation in Python, Java, SQL, Git, and cloud deployment. Passionate about backend engineering, AI applications, and solving real-world problems through software development.
 
+======================================================================
 EDUCATION
-- B.E. Computer Science and Engineering (2024–2028)
-  Dr. NGP Institute of Technology, Coimbatore | CGPA: 8.4
-- Higher Secondary (2022–2024)
-  BAVN Higher Secondary School, Sathy, Erode | HSLC: 90%
-- Secondary School (2012–2022)
-  Best Matriculation School, Kallippatti, Erode | SSLC: 91%
+======================================================================
+- B.E. in Computer Science and Engineering                                 2024 - Expected pass out 2028
+  Dr. NGP Institute of Technology, Coimbatore - CGPA: 8.4
+- Higher Secondary                                                         2022 - 2024
+  BAVN Higher Secondary School, Sathy, Erode - HSLC: 90%
+- Secondary School                                                         2012 - 2022
+  Best Matriculation School, Kallippatti, Erode - SSLC: 91%
 
+======================================================================
 TECHNICAL SKILLS
-- Languages: Python, Java, HTML, CSS
-- Frameworks: Django, Django REST Framework, Spring Boot, React
-- Databases: PostgreSQL, MySQL, SQLite
-- Tools: Git, GitHub, Postman, Render, Vercel
-- AI: Prompt Engineering, Sentence Transformers
+======================================================================
+- Programming languages : Python, Java, HTML, CSS
+- AI : Prompt Engineering, Sentence Transformers
+- Frameworks : Flask, Django, Springboot, React
+- Database : PostgreSQL, MySQL, SQLite
+- Tools & Technologies : Git, GitHub, Postman, Render, Vercel
 
+======================================================================
 PROJECTS
-- Automated Attendance System
-  OTP-based attendance, role-based access, analytics using Django.
-  GitHub: https://github.com/ARUN-1-tech/Attendance_System.git
-  Demo: https://attendance-system-ecru-xi.vercel.app/
+======================================================================
+- Automated Attendance System: OTP based attendance management.
+- Banana Billing: Billing and invoice management system.
+- Personal Finance Tracker: AI-powered expense and budget tracker.
+- Offline AI Assistant: Offline voice-controlled personal assistant.
 
-- Banana Billing & Invoice Management
-  React + Django REST application with invoice generation and deployment.
-  GitHub: https://github.com/ARUN-1-tech/Banana-Billing-and-Invoice-Management.git
-  Demo: https://banana-billing-and-invoice-manageme.vercel.app/login
-
-- Personal Finance Tracker
-  Income, expense, savings goals, dashboard analytics using Django & PostgreSQL.
-  GitHub: https://github.com/ARUN-1-tech/FinanceTracker.git
-
-- Offline AI Voice Assistant
-  Speech recognition and local AI automation using Python.
-  GitHub: https://github.com/ARUN-1-tech
-
+======================================================================
 ACHIEVEMENTS
-- 1st Prize: BIT Hackathon (₹1500 Cash Prize)
-- 3rd Prize: Attendance Management System Hackathon
-- Developed and launched several practical web applications
+======================================================================
+- Won a cash prize at the BIT Hackathon 2025.
+- Developed and deployed multiple real-world web applications.
 
+======================================================================
+EXTRACURRICULAR ACTIVITIES
+======================================================================
+- Participated in inter-college hackathons.
+- Built AI and full-stack projects.
+- Regularly practice coding and problem-solving.
+- Continuously learn new technologies.
+
+======================================================================
 CERTIFICATIONS
+======================================================================
 - Served as an intern at EliteCrows InfoTech, Gobichettipalayam, focusing on Full Stack Development.
 - Participated in the UI/UX course, earning one credit, organized by PinesPhere Solutions.
 - Completed some certifications like python, java, HTML and so on, in Simplilearn, GreatLearning.
 - Certified in NPTEL platform for completing Cloud Computing course with 65%.
 
-STRENGTHS
-- Enthusiastic about exploring emerging technologies and utilizing them to address real-world challenges.
-- Skilled at analyzing complex scenarios and crafting logical, efficient solutions.
-- Quick to adapt to new tools, frameworks, and dynamic work settings.
-- Capable of working effectively both independently and as part of a team.
-- Dedicated to continuous improvement with a strong emphasis on innovation and technical excellence.
 ======================================================================
+STRENGTHS
+======================================================================
+- Passionate about learning new technologies and applying them to solve real-world problems.
+- Strong analytical and problem-solving skills with a logical approach to challenges.
+- Quick to adapt to new tools, frameworks, and changing work environments.
+- Work effectively both independently and collaboratively in a team environment.
