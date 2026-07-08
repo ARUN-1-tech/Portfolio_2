@@ -4,10 +4,10 @@ import profileImg from '../assets/profile.jpg';
 
 export default function About() {
   const handleDownloadResume = () => {
-    const resumeUrl = `${import.meta.env.BASE_URL}ARUN_T_Resume.txt`;
+    const resumeUrl = `${import.meta.env.BASE_URL}ARUN_T_Resume.pdf`;
     const link = document.createElement('a');
     link.href = resumeUrl;
-    link.download = 'ARUN_T_Resume.txt';
+    link.download = 'ARUN_T_Resume.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -39,7 +39,7 @@ export default function About() {
             </div>
             
             <h3>ARUN T</h3>
-            <p>Full Stack & Backend Developer</p>
+            <p>Full Stack Developer</p>
             
             <div className="about-meta">
               <div className="about-meta-item">

@@ -13,7 +13,7 @@ export default function Experience() {
     },
     {
       date: 'Present Focus',
-      title: 'Aspiring Full Stack & Backend Developer',
+      title: 'Aspiring Full Stack Developer',
       subtitle: 'Self-Directed Research & Projects',
       bullets: [
         'Deepening expertise in Backend engineering (Django, Spring Boot) and modern frontends (React).',
