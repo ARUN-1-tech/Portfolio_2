@@ -11,6 +11,15 @@ export default function Contact() {
 
   const [errors, setErrors] = useState({});
 
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -68,7 +77,7 @@ Email: ${email}`;
       <div className="contact-grid">
         {/* Contact Info */}
         <div className="contact-info reveal reveal-left">
-          <div className="glass-card contact-info-card">
+          <div className="glass-card contact-info-card" onMouseMove={handleMouseMove}>
             <div className="contact-info-icon">
               <Mail size={22} />
             </div>
@@ -78,7 +87,7 @@ Email: ${email}`;
             </div>
           </div>
 
-          <div className="glass-card contact-info-card">
+          <div className="glass-card contact-info-card" onMouseMove={handleMouseMove}>
             <div className="contact-info-icon">
               <Phone size={22} />
             </div>
@@ -88,7 +97,7 @@ Email: ${email}`;
             </div>
           </div>
 
-          <div className="glass-card contact-info-card">
+          <div className="glass-card contact-info-card" onMouseMove={handleMouseMove}>
             <div className="contact-info-icon">
               <MapPin size={22} />
             </div>
@@ -100,7 +109,7 @@ Email: ${email}`;
         </div>
 
         {/* Contact Form */}
-        <div className="glass-card contact-form-container reveal reveal-right">
+        <div className="glass-card contact-form-container reveal reveal-right" onMouseMove={handleMouseMove}>
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name" className="form-label">Name</label>

@@ -1,19 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export default function CustomCursor() {
   const canvasRef = useRef(null);
   const mouseCoords = useRef({ x: 0, y: 0 });
   const lastMouseCoords = useRef({ x: 0, y: 0 });
   const isHovered = useRef(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const hasMoved = useRef(false);
+  const isTouchDevice = useRef(false);
 
   useEffect(() => {
-    // Check if device supports touch
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) return;
-
-    setIsVisible(true);
-
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -28,9 +23,23 @@ export default function CustomCursor() {
     const particles = [];
     const maxParticles = 150;
 
-    // Track mouse coordinates
+    // Track mouse coordinates and set initial positions
     const onMouseMove = (e) => {
       mouseCoords.current = { x: e.clientX, y: e.clientY };
+      if (!hasMoved.current) {
+        hasMoved.current = true;
+        lastMouseCoords.current = { x: e.clientX, y: e.clientY };
+        cursorCoords.x = e.clientX;
+        cursorCoords.y = e.clientY;
+      }
+    };
+
+    // Detect touch input and hide the cursor canvas
+    const onTouchStart = () => {
+      isTouchDevice.current = true;
+      if (canvasRef.current) {
+        canvasRef.current.style.display = 'none';
+      }
     };
 
     // Check if hovering clickable elements
@@ -49,13 +58,15 @@ export default function CustomCursor() {
         target.classList.contains('filter-btn') ||
         target.classList.contains('project-card') ||
         target.closest('.project-card') ||
-        target.classList.contains('theme-toggle');
+        target.classList.contains('theme-toggle') ||
+        target.classList.contains('scroll-to-top');
 
       isHovered.current = !!isClickable;
     };
 
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseover', onMouseOver);
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
 
     // Keep an interpolated cursor position for smooth lag effect
     const cursorCoords = { x: 0, y: 0 };
@@ -65,9 +76,7 @@ export default function CustomCursor() {
         this.x = x;
         this.y = y;
         
-        // Random initial velocities
         const angle = Math.random() * Math.PI * 2;
-        // Faster, wider speed distribution when hovering
         const speed = isHoveredState 
           ? Math.random() * 2.5 + 0.8
           : Math.random() * 1.2 + 0.3;
@@ -75,7 +84,6 @@ export default function CustomCursor() {
         this.vx = Math.cos(angle) * speed;
         this.vy = Math.sin(angle) * speed;
         
-        // Hover particles drift slightly upward/outward
         if (isHoveredState) {
           this.vy -= 0.3;
         }
@@ -94,20 +102,17 @@ export default function CustomCursor() {
         this.y += this.vy;
         this.life--;
         this.alpha = Math.max(0, this.life / this.maxLife);
-        // Shrink particle size over time
         this.size = Math.max(0.1, this.size * 0.95);
       }
 
       draw() {
         if (this.alpha <= 0) return;
         ctx.beginPath();
-        // Color transition: Cyan (180) to Purple (275) over lifespan
-        const ageRatio = this.life / this.maxLife; // 1 to 0
+        const ageRatio = this.life / this.maxLife;
         const hue = 180 + (1 - ageRatio) * 95; 
         
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         
-        // Create subtle glow ring around larger particles
         if (this.size > 2.5) {
           ctx.fillStyle = `hsla(${hue}, 100%, 65%, ${this.alpha * 0.12})`;
           ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
@@ -127,6 +132,11 @@ export default function CustomCursor() {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      if (isTouchDevice.current || !hasMoved.current) {
+        frameId = requestAnimationFrame(animate);
+        return;
+      }
+
       // Lerp mouse coordinates to make the inner cursor head drag smoothly
       cursorCoords.x += (mouseCoords.current.x - cursorCoords.x) * 0.18;
       cursorCoords.y += (mouseCoords.current.y - cursorCoords.y) * 0.18;
@@ -136,14 +146,11 @@ export default function CustomCursor() {
       const dy = mouseCoords.current.y - lastMouseCoords.current.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
-      // Save last coordinates
       lastMouseCoords.current = { ...mouseCoords.current };
 
-      // Spawn trail particles if moving
       if (dist > 0.5) {
         const numParticles = Math.min(5, Math.floor(dist / 3) + 1);
         for (let i = 0; i < numParticles; i++) {
-          // Distribute new particles along the path between last position and current
           const ratio = i / numParticles;
           const px = lastMouseCoords.current.x - dx * ratio;
           const py = lastMouseCoords.current.y - dy * ratio;
@@ -153,11 +160,9 @@ export default function CustomCursor() {
         }
       }
 
-      // Idle breathing particles when cursor is stationary
       spawnTimer++;
       if (spawnTimer % 2 === 0) {
         if (particles.length < maxParticles) {
-          // If hovering, spawn more idle sparks
           const count = isHovered.current ? 2 : 1;
           for (let i = 0; i < count; i++) {
             const offsetAngle = Math.random() * Math.PI * 2;
@@ -169,7 +174,7 @@ export default function CustomCursor() {
         }
       }
 
-      // Update and draw all particles with additive blending
+      // Render all particles with additive blending
       ctx.globalCompositeOperation = 'lighter';
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
@@ -207,10 +212,9 @@ export default function CustomCursor() {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseover', onMouseOver);
+      window.removeEventListener('touchstart', onTouchStart);
     };
   }, []);
-
-  if (!isVisible) return null;
 
   return (
     <canvas

@@ -20,6 +20,8 @@ function ProjectCard({ project }) {
     const rotateY = ((x - centerX) / centerX) * 8;
 
     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
   };
 
   const handleMouseLeave = () => {

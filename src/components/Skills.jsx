@@ -79,6 +79,15 @@ export default function Skills() {
     }
   ];
 
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+  };
+
   return (
     <section id="skills" className="section container" ref={sectionRef}>
       <div className="section-header reveal">
@@ -88,7 +97,7 @@ export default function Skills() {
 
       <div className="skills-grid">
         {skillCategories.map((category, idx) => (
-          <div key={idx} className="glass-card skills-category reveal">
+          <div key={idx} className="glass-card skills-category reveal" onMouseMove={handleMouseMove}>
             <h3>
               {category.icon}
               <span className="text-gradient">{category.title}</span>

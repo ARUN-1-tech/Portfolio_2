@@ -59,6 +59,15 @@ export default function Experience() {
     }
   ];
 
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+  };
+
   return (
     <section id="experience" className="section container">
       <div className="section-header reveal">
@@ -70,7 +79,7 @@ export default function Experience() {
         {milestones.map((milestone, idx) => (
           <div key={idx} className="timeline-item reveal">
             <div className="timeline-marker" />
-            <div className="glass-card timeline-content">
+            <div className="glass-card timeline-content" onMouseMove={handleMouseMove}>
               <span className="timeline-date">{milestone.date}</span>
               <h3 className="timeline-title">{milestone.title}</h3>
               <h4 className="timeline-subtitle">{milestone.subtitle}</h4>

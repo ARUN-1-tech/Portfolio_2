@@ -13,6 +13,15 @@ export default function About() {
     document.body.removeChild(link);
   };
 
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+  };
+
   const certifications = [
     'Full Stack Development Intern at EliteCrows InfoTech, Gobichettipalayam',
     'UI/UX Course Credit (1 Credit) organized by PinesPhere Solutions',
@@ -30,7 +39,7 @@ export default function About() {
       <div className="about-grid">
         {/* Left Column - Card Profile */}
         <div className="about-left reveal reveal-left">
-          <div className="glass-card about-card">
+          <div className="glass-card about-card" onMouseMove={handleMouseMove}>
             <div className="about-avatar-container">
               <div className="about-avatar">
                 <img src={profileImg} alt="Arun T" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -78,7 +87,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className="glass-card career-goal-card">
+          <div className="glass-card career-goal-card" onMouseMove={handleMouseMove}>
             <h4>Career Goal</h4>
             <p>
               "To become a skilled AI Engineer developing intelligent, scalable, and impactful software solutions."
@@ -100,7 +109,7 @@ export default function About() {
 
           <div className="education-details">
             <h4 style={{ marginBottom: '15px', color: 'hsl(var(--text-primary))' }}>Education Summary</h4>
-            <div className="glass-card" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+            <div className="glass-card" onMouseMove={handleMouseMove} style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '5px' }}>
                   <strong style={{ color: 'hsl(var(--text-primary))' }}>B.E. in Computer Science & Engineering</strong>
