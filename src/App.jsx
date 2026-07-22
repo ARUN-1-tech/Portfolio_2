@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUp } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -11,12 +11,44 @@ import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import ParticlesBg from './components/ParticlesBg';
 import useScrollReveal from './hooks/useScrollReveal';
+import Lenis from 'lenis';
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
   const [activeSection, setActiveSection] = useState('hero');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [loading, setLoading] = useState(true);
+  const lenisRef = useRef(null);
+
+  // Initialize Lenis smooth scroll
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom premium cubic easing
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    lenisRef.current = lenis;
+    window.lenis = lenis;
+
+    let rafId;
+    function raf(time) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      window.lenis = null;
+    };
+  }, []);
 
   // Initialize theme
   useEffect(() => {
@@ -72,7 +104,11 @@ export default function App() {
   useScrollReveal([loading]);
 
   const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
