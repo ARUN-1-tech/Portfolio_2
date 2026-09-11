@@ -22,7 +22,7 @@ EDUCATION
 ======================================================================
 TECHNICAL SKILLS
 ======================================================================
-- Programming languages : Python, Java, HTML, CSS
+- Programming languages : Python, Java, HTML, CSS, React
 - AI : Prompt Engineering, Sentence Transformers
 - Frameworks : Flask, Django, Springboot, React
 - Database : PostgreSQL, MySQL, SQLite
