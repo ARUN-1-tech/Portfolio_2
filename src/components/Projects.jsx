@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ExternalLink, Users, FileText, TrendingUp, Tv, PenTool, Mic, Activity } from 'lucide-react';
+import { ExternalLink, Users, FileText, TrendingUp, Tv, PenTool, Mic, Activity, Swords } from 'lucide-react';
 import { Github } from './BrandIcons';
 import useScrollReveal from '../hooks/useScrollReveal';
 
@@ -72,6 +72,15 @@ export default function Projects() {
   useScrollReveal([filter]);
 
   const projectsData = [
+    {
+      title: 'DevArena — Competitive Coding Arena',
+      description: 'A full-stack competitive programming and real-time 1v1 battle arena platform. Features 128+ algorithmic katas, STOMP WebSocket multiplayer matches, Monaco editor code lab, secure code execution sandbox, and global MMR leaderboards.',
+      technologies: ['Spring Boot', 'Java', 'React', 'TypeScript', 'PostgreSQL', 'Docker', 'WebSockets'],
+      category: 'fullstack',
+      github: 'https://github.com/ARUN-1-tech/DevArena',
+      demo: 'https://dev-arena-kappa.vercel.app',
+      icon: <Swords size={22} />
+    },
     {
       title: 'Automated Attendance System and Analysis',
       description: 'A smart attendance management platform with OTP-based verification, role-based access control, admin analytics dashboards, and teacher/student portals.',

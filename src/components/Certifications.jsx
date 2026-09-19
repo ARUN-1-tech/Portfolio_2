@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Award, 
   ExternalLink, 
@@ -20,6 +20,8 @@ import certIste from '../assets/certificates/iste_membership.jpg';
 import certC from '../assets/certificates/c_for_beginners.jpg';
 import certHtmlTut from '../assets/certificates/html_tutorial.jpg';
 import certHtmlFront from '../assets/certificates/frontend_html.jpg';
+import certElitecrows from '../assets/certificates/elitecrows_internship.jpg';
+import certMatlab from '../assets/certificates/matlab_onramp.jpg';
 
 function MidCertCard({ item, onOpenModal }) {
   const cardRef = useRef(null);
@@ -272,12 +274,18 @@ export default function Certifications() {
       id: 'elitecrows-internship',
       title: 'Full Stack Web Development Internship',
       issuer: 'Elitecrows Infotech, Gobichettipalayam',
-      year: '2026',
+      year: 'May 2026',
       badge: 'Internship',
       category: 'memberships',
-      placeholderIcon: <Layers size={32} className="mid-cert-placeholder-icon" />,
-      description: '15-day hands-on engineering internship building end-to-end full stack web applications, REST APIs, and databases.',
-      images: null
+      description: '15-day hands-on engineering internship building responsive web apps with frontend and backend frameworks.',
+      images: [
+        {
+          title: 'Internship Completion Certificate: Full Stack Web Development',
+          issuer: 'Elitecrows Infotech, Gobichettipalayam',
+          date: '15th May - 30th May, 2026',
+          src: certElitecrows
+        }
+      ]
     },
     {
       id: 'matlab-onramp',
@@ -286,9 +294,15 @@ export default function Certifications() {
       year: 'Completed 100%',
       badge: '100% Score',
       category: 'certifications',
-      placeholderIcon: <Cpu size={32} className="mid-cert-placeholder-icon" />,
       description: 'Completed 100% of the MathWorks computational training program on numerical analysis and matrix computations.',
-      images: null
+      images: [
+        {
+          title: 'MathWorks Progress Report: MATLAB Onramp (100%)',
+          issuer: 'MathWorks Training Services',
+          date: '18 November 2024',
+          src: certMatlab
+        }
+      ]
     }
   ];
 
