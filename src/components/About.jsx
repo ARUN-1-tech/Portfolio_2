@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, GraduationCap, Award, Download, Award as CertificationIcon } from 'lucide-react';
+import { MapPin, GraduationCap, Award, Download } from 'lucide-react';
 import profileImg from '../assets/profile.jpg';
 
 export default function About() {
@@ -22,12 +22,6 @@ export default function About() {
     card.style.setProperty('--mouse-y', `${y}px`);
   };
 
-  const certifications = [
-    'Full Stack Development Intern at EliteCrows InfoTech, Gobichettipalayam',
-    'UI/UX Course Credit (1 Credit) organized by PinesPhere Solutions',
-    'Completed programming certifications (Python, Java, HTML) via Simplilearn & GreatLearning',
-    'Certified in Cloud Computing via NPTEL Platform (Score: 65%)'
-  ];
 
   return (
     <section id="about" className="section container">
@@ -94,18 +88,6 @@ export default function About() {
             </p>
           </div>
 
-          {/* Certifications list */}
-          <div style={{ marginBottom: '30px' }}>
-            <h4 style={{ marginBottom: '12px', color: 'hsl(var(--text-primary))' }}>Certifications & Experience</h4>
-            <ul style={{ listStyle: 'none', paddingLeft: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {certifications.map((cert, idx) => (
-                <li key={idx} style={{ marginBottom: '4px', paddingLeft: '15px', position: 'relative', fontSize: '0.95rem' }}>
-                  <span style={{ position: 'absolute', left: 0, color: 'hsl(var(--accent-glow))' }}>▹</span>
-                  {cert}
-                </li>
-              ))}
-            </ul>
-          </div>
 
           <div className="education-details">
             <h4 style={{ marginBottom: '15px', color: 'hsl(var(--text-primary))' }}>Education Summary</h4>
