@@ -6,6 +6,7 @@ import About from './components/About';
 import Experience from './components/Experience';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
@@ -78,7 +79,7 @@ export default function App() {
       setShowScrollTop(window.scrollY > 400);
 
       // Identify currently active section
-      const sections = ['hero', 'about', 'experience', 'skills', 'projects', 'contact'];
+      const sections = ['hero', 'about', 'experience', 'skills', 'projects', 'certifications', 'contact'];
       const scrollPosition = window.scrollY + window.innerHeight / 3;
 
       for (const section of sections) {
@@ -143,6 +144,7 @@ export default function App() {
         <Experience />
         <Skills />
         <Projects />
+        <Certifications />
         <Contact />
       </main>
 
