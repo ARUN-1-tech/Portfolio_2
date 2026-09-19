@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+﻿import React, { useEffect, useRef } from 'react';
 
 export default function CustomCursor() {
   const canvasRef = useRef(null);
@@ -7,6 +7,11 @@ export default function CustomCursor() {
   const isHovered = useRef(false);
   const hasMoved = useRef(false);
   const isTouchDevice = useRef(false);
+  const currentTheme = useRef(
+    typeof document !== 'undefined'
+      ? document.documentElement.getAttribute('data-theme') || 'dark'
+      : 'dark'
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -19,6 +24,24 @@ export default function CustomCursor() {
     };
     handleResize();
     window.addEventListener('resize', handleResize);
+
+    // Track Theme changes in real-time
+    const updateThemeState = () => {
+      const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+      currentTheme.current = theme;
+      if (canvas) {
+        canvas.style.mixBlendMode = theme === 'light' ? 'normal' : 'screen';
+      }
+    };
+    updateThemeState();
+
+    const observer = new MutationObserver(() => {
+      updateThemeState();
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
 
     const particles = [];
     const maxParticles = 150;
@@ -56,10 +79,17 @@ export default function CustomCursor() {
         target.tagName === 'INPUT' ||
         target.tagName === 'TEXTAREA' ||
         target.classList.contains('filter-btn') ||
+        target.closest('.filter-btn') ||
+        target.classList.contains('tech-card') ||
+        target.closest('.tech-card') ||
+        target.classList.contains('mid-cert-card') ||
+        target.closest('.mid-cert-card') ||
         target.classList.contains('project-card') ||
         target.closest('.project-card') ||
         target.classList.contains('theme-toggle') ||
-        target.classList.contains('scroll-to-top');
+        target.closest('.theme-toggle') ||
+        target.classList.contains('scroll-to-top') ||
+        target.closest('.scroll-to-top');
 
       isHovered.current = !!isClickable;
     };
@@ -105,24 +135,42 @@ export default function CustomCursor() {
         this.size = Math.max(0.1, this.size * 0.95);
       }
 
-      draw() {
+      draw(isLight) {
         if (this.alpha <= 0) return;
         ctx.beginPath();
-        const ageRatio = this.life / this.maxLife;
-        const hue = 180 + (1 - ageRatio) * 95; 
-        
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        
-        if (this.size > 2.5) {
-          ctx.fillStyle = `hsla(${hue}, 100%, 65%, ${this.alpha * 0.12})`;
-          ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.beginPath();
+
+        if (isLight) {
+          // Pure black particles with soft charcoal aura in light mode
           ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+
+          if (this.size > 2.2) {
+            ctx.fillStyle = `rgba(0, 0, 0, ${this.alpha * 0.12})`;
+            ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          }
+          
+          ctx.fillStyle = `rgba(0, 0, 0, ${this.alpha * 0.85})`;
+          ctx.fill();
+        } else {
+          // Neon glowing cyan / purple particles in dark mode
+          const ageRatio = this.life / this.maxLife;
+          const hue = 180 + (1 - ageRatio) * 95; 
+          
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          
+          if (this.size > 2.5) {
+            ctx.fillStyle = `hsla(${hue}, 100%, 65%, ${this.alpha * 0.12})`;
+            ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          }
+          
+          ctx.fillStyle = `hsla(${hue}, 100%, 60%, ${this.alpha})`;
+          ctx.fill();
         }
-        
-        ctx.fillStyle = `hsla(${hue}, 100%, 60%, ${this.alpha})`;
-        ctx.fill();
       }
     }
 
@@ -136,6 +184,8 @@ export default function CustomCursor() {
         frameId = requestAnimationFrame(animate);
         return;
       }
+
+      const isLight = currentTheme.current === 'light';
 
       // Lerp mouse coordinates to make the inner cursor head drag smoothly
       cursorCoords.x += (mouseCoords.current.x - cursorCoords.x) * 0.18;
@@ -174,33 +224,46 @@ export default function CustomCursor() {
         }
       }
 
-      // Render all particles with additive blending
-      ctx.globalCompositeOperation = 'lighter';
+      // Render all particles: source-over for black ink in light mode, lighter for glow in dark mode
+      ctx.globalCompositeOperation = isLight ? 'source-over' : 'lighter';
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.update();
-        p.draw();
+        p.draw(isLight);
         if (p.life <= 0 || p.size <= 0.2) {
           particles.splice(i, 1);
         }
       }
 
-      // Draw the core glowing cursor point
-      ctx.beginPath();
+      // Draw the core cursor point and ring
       ctx.globalCompositeOperation = 'source-over';
-      const coreHue = isHovered.current ? 275 : 180;
-      const coreSize = isHovered.current ? 5 : 6;
-      
-      // Draw outer glowing ring for core point
-      ctx.arc(cursorCoords.x, cursorCoords.y, coreSize * (isHovered.current ? 3.0 : 2.0), 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${coreHue}, 100%, 65%, 0.18)`;
-      ctx.fill();
+      const coreSize = isHovered.current ? 5.5 : 6;
 
-      // Draw inner core point
-      ctx.beginPath();
-      ctx.arc(cursorCoords.x, cursorCoords.y, coreSize, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${coreHue}, 100%, 60%, 0.95)`;
-      ctx.fill();
+      if (isLight) {
+        // Deep black core & subtle charcoal ring in light mode
+        ctx.beginPath();
+        ctx.arc(cursorCoords.x, cursorCoords.y, coreSize * (isHovered.current ? 3.0 : 2.0), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0, 0, 0, ${isHovered.current ? 0.16 : 0.08})`;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(cursorCoords.x, cursorCoords.y, coreSize, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.95)';
+        ctx.fill();
+      } else {
+        // Neon cyan / purple in dark mode
+        const coreHue = isHovered.current ? 275 : 180;
+
+        ctx.beginPath();
+        ctx.arc(cursorCoords.x, cursorCoords.y, coreSize * (isHovered.current ? 3.0 : 2.0), 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${coreHue}, 100%, 65%, 0.18)`;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(cursorCoords.x, cursorCoords.y, coreSize, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${coreHue}, 100%, 60%, 0.95)`;
+        ctx.fill();
+      }
 
       frameId = requestAnimationFrame(animate);
     };
@@ -209,6 +272,7 @@ export default function CustomCursor() {
 
     return () => {
       cancelAnimationFrame(frameId);
+      observer.disconnect();
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseover', onMouseOver);
@@ -228,7 +292,6 @@ export default function CustomCursor() {
         height: '100vh',
         pointerEvents: 'none',
         zIndex: 999999,
-        mixBlendMode: 'screen',
       }}
     />
   );

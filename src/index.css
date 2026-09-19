@@ -1192,6 +1192,10 @@ h1, h2, h3, h4, h5, h6 {
   pointer-events: none;
 }
 
+[data-theme="light"] #custom-cursor-canvas {
+  mix-blend-mode: normal;
+}
+
 @media (hover: hover) and (pointer: fine) {
   body, a, button, input, textarea, select, [role="button"], .filter-btn, .project-card, .theme-toggle, .scroll-to-top {
     cursor: none !important;
